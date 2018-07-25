@@ -12,8 +12,6 @@ const connection = mysql.createConnection({
 
 var response;
 var itemArray = [];
-var itemList = [];
-
 
 function showInventory(){
     connection.query(
@@ -26,63 +24,49 @@ function showInventory(){
             if (!error){
                 for (var i = 0; i < response.length; i++){
                     itemArray.push({
+                        id: response[i].item_id,
                         item: response[i].product_name,
                         price: response[i].price,
                         department: response[i].department_name,
                         quantity: response[i].stock_quantity
                     });
-                    itemList.push(response[i].product_name);
                 }
                 console.table(itemArray);
             }
         }
     )
-
 }
 
-
 function askUser(){
-    inquirer.prompt(
+    inquirer.prompt([
         {
-            type: 'rawlist',
+            type: 'input',
             name: 'itemChoice',
-            message: 'What would you like to buy?',
-            choices: itemList
+            message: 'Please enter ID of the item you wish to purchase.'
         },
         {
             type: 'input',
             name: 'quantity',
             message: 'How many would you like to buy?'
         }
-    ).then(function(answer){
-        console.log(answer.itemChoice)
-        console.log(answer.quantity);
+    ]).then(function(answer){
+        var item = parseInt(answer.itemChoice);
+        console.log(item)
+        var quantity = answer.quantity;
+        connection.query(`SELECT * FROM products WHERE item_id = ${item}`, function (error, response){
+            if (error){
+                console.log("Connection failed.")
+                return;
+            }else {
+                productData = response[0];
+                console.log(productData);
+            }
+        })
+
+
+
+
     })
 };
 
-showInventory();
 askUser();
-
-
-// function start(){
-//     console.log(`Welcome to Bamazon! \n Check out our inventory! \n`)
-//     showInventory();
-//     console.log(`\n`)
-
-// }
-
-// start();
-
-
-
-// ).then(function (answer) {
-//     response = answer.query;
-//     switch (response) {
-//         case 'POST':
-//             postItem();
-//             break;
-//         case 'BID':
-//             bidItem();
-//             break;
-//     }
-// });
