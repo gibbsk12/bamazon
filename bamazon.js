@@ -1,16 +1,13 @@
-const inquirer = require('inquirer');
-const mysql = require('mysql');
-const table = require('console.table');
-
-const connection = mysql.createConnection({
+var inquirer = require('inquirer');
+var mysql = require('mysql');
+var table = require('console.table');
+var connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: 'root',
     password: 'iwgtlBIAS!851sql',
     database: 'bamazonDB'
 });
-
-var response;
 var itemArray = [];
 
 function showInventory(){
@@ -55,17 +52,27 @@ function askUser(){
         var quantity = answer.quantity;
         connection.query(`SELECT * FROM products WHERE item_id = ${item}`, function (error, response){
             if (error){
-                console.log("Connection failed.")
+                console.log("Connection failed.");
                 return;
             }else {
                 productData = response[0];
-                console.log(productData);
+                if (productData.stock_quantity > quantity){
+                    console.log(`Absolutely! We have ${productData.product_name} in stock!`)
+                    var newTotal = productData.stock_quantity - quantity
+                    var price = quantity*productData.price
+                    connection.query(`UPDATE products SET stock_quantity = ${newTotal} WHERE item_id = ${item}`, function(error, response){
+                        if (error){
+                            console.log("Quantity update failed.");
+                            return;
+                        }else{
+                            console.log(`Your total cost is $${price}.`)
+                        }
+                    })
+                }else{
+                    console.log(`We apologize, but we only have ${productData.stock_quantity} in stock!`)
+                }
             }
         })
-
-
-
-
     })
 };
 
