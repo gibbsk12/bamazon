@@ -5,7 +5,7 @@ var connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
     user: 'root',
-    password: 'iwgtlBIAS!851sql',
+    password: 'kvgsql',
     database: 'bamazonDB'
 });
 var itemArray = [];
@@ -29,6 +29,7 @@ function showInventory(){
                     });
                 }
                 console.table(itemArray);
+                askUser();
             }
         }
     )
@@ -76,4 +77,4 @@ function askUser(){
     })
 };
 
-askUser();
+showInventory();
