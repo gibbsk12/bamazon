@@ -15,7 +15,7 @@ function showInventory(){
         "SELECT * FROM products",
         function (error, response){
             if (error){
-                console.log("Connection failed.")
+                console.log("There was error.")
                 return;
             }
             if (!error){
@@ -24,8 +24,7 @@ function showInventory(){
                         id: response[i].item_id,
                         item: response[i].product_name,
                         price: response[i].price,
-                        department: response[i].department_name,
-                        quantity: response[i].stock_quantity
+                        department: response[i].department_name
                     });
                 }
                 console.table(itemArray);
@@ -49,11 +48,10 @@ function askUser(){
         }
     ]).then(function(answer){
         var item = parseInt(answer.itemChoice);
-        console.log(item)
         var quantity = answer.quantity;
         connection.query(`SELECT * FROM products WHERE item_id = ${item}`, function (error, response){
             if (error){
-                console.log("Connection failed.");
+                console.log("There was an error.");
                 return;
             }else {
                 productData = response[0];
