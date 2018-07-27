@@ -65,10 +65,12 @@ function askUser(){
                             return;
                         }else{
                             console.log(`Your total cost is $${price}.`)
+                            askUser();
                         }
                     })
                 }else{
                     console.log(`We apologize, but we only have ${productData.stock_quantity} in stock!`)
+                    askUser();
                 }
             }
         })
