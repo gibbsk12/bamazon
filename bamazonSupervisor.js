@@ -33,27 +33,53 @@ function start() {
     });
 }
 
-function viewSales(){
+var departmentArray = [];
+var informationArray = [];
+
+function viewSales() {
+    makeArray();
+}
+
+
+function makeArray() {
     connection.query(
-        "SELECT * FROM products WHERE stock_quantity < 5", function (error, response) {
+        "SELECT * FROM departments",
+        function (error, response) {
             if (error) {
                 console.log("There was error.")
                 return;
             }
             if (!error) {
-                console.log(`\nThe following items have low inventory:`);
                 for (var i = 0; i < response.length; i++) {
-                    // itemArray.push({
-                    //     id: response[i].item_id,
-                    //     item: response[i].product_name,
-                    //     price: response[i].price,
-                    //     quantity: response[i].stock_quantity
-                    // });
-                    console.log(`${response[i].item_id}--${response[i].product_name}--${response[i].stock_quantity} in stock.\n`)
+                    departmentArray.push(response[i].department_name);
                 }
-                start();
+                console.log(departmentArray);
+                for (i = 0; i < departmentArray.length; i++) {
+                    connection.query(
+                        `SELECT * FROM products WHERE department_name = '${departmentArray[i]}'`,
+                        function (error, response) {
+                            if (error) {
+                                console.log("There was error.")
+                                return;
+                            }
+                            if (!error) {
+                                var deptTotal = 0;
+                                for (i = 0; i < response.length; i++) {
+                                    deptTotal = deptTotal + response[i].product_sales
+                                    var dept = response[i].department_name
+                                }
+                                informationArray.push({
+                                    department: dept,
+                                    sales: deptTotal})
+                            }
+                            console.log(informationArray);
+                        }
+                    )
+                }
             }
         }
     )
 }
-}
+
+
+start();
