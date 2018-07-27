@@ -42,6 +42,9 @@ VALUES ('Lipsense', 'Makeup', 22, 140);
 INSERT INTO products (product_name, department_name, price, stock_quantity)
 VALUES ('Wonder', 'Books', 13, 210);
 
+INSERT INTO products (product_name, department_name, price, stock_quantity)
+VALUES ('Sous Vide Cooker', 'Kitchen', 199, 3);
+
 
 SELECT 
     *
