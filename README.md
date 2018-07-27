@@ -4,8 +4,6 @@ This is the 9th homework assignment for the University of Richmond Coding Bootca
 
 In this assignment, we were asked to create an Amazon-like app with MySQL. This app has two interfaces--one for customers and one for managers.
 
-
-
 ## Getting Started 
 1. Clone the repository. 
 2. Run command `npm install` in Terminal.
@@ -17,8 +15,7 @@ The customer interface takes in orders from customers. If inventory is available
 
 ![Customer View](https://media.giphy.com/media/25pU7OJCsW6qOlVtTy/giphy.gif)
 
-To use the customer interface, simple type `node bamazonCustomer.js` in Terminal.
-
+To use the customer interface, simply type `node bamazonCustomer.js` in Terminal.
 
 ### Bamazon Manager
 The manager interface allows the user to:
@@ -35,7 +32,7 @@ The manager interface allows the user to:
 
 ![Create New Product](https://media.giphy.com/media/5h7QMsNndM7G8YR1Gy/giphy.gif)
 
-To use the customer interface, simple type `node bamazonManager.js` in Terminal.
+To use the customer interface, simply type `node bamazonManager.js` in Terminal.
 
 ## Built With
 * [Node.js](https://nodejs.org/en/)

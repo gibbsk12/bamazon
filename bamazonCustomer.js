@@ -65,8 +65,16 @@ function askUser(){
                             return;
                         }else{
                             console.log(`Your total cost is $${price}.`)
-                            askUser();
-                        }
+                            var newSales = productData.product_sales + price
+                            connection.query(`UPDATE products SET product_sales = ${newSales} WHERE item_id = ${item}`, function(error, response){
+                                if (error){
+                                    console.log("Quantity update failed.");
+                                    return;
+                                }else{
+                                    askUser();
+                                }
+                            })
+                         }
                     })
                 }else{
                     console.log(`We apologize, but we only have ${productData.stock_quantity} in stock!`)
@@ -78,3 +86,4 @@ function askUser(){
 };
 
 showInventory();
+
