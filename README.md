@@ -30,7 +30,7 @@ The manager interface allows the user to:
 
 4. Add New Product (Create and a new entry to the mySQL database)
 
-![Create New Product](https://media.giphy.com/media/5h7QMsNndM7G8YR1Gy/giphy.gif)
+![Create New Product](https://media.giphy.com/media/1wrSAobmp7nqKYjPVL/giphy.gif)
 
 To use the customer interface, simply type `node bamazonManager.js` in Terminal.
 
