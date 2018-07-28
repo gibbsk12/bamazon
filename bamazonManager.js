@@ -76,13 +76,7 @@ function showLow() {
             if (!error) {
                 console.log(`\nThe following items have low inventory:`);
                 for (var i = 0; i < response.length; i++) {
-                    // itemArray.push({
-                    //     id: response[i].item_id,
-                    //     item: response[i].product_name,
-                    //     price: response[i].price,
-                    //     quantity: response[i].stock_quantity
-                    // });
-                    console.log(`${response[i].item_id}--${response[i].product_name}--${response[i].stock_quantity} in stock.\n`)
+                    console.log(`${response[i].product_name} (Item ID: ${response[i].item_id})-- There are ${response[i].stock_quantity} in stock.\n`)
                 }
                 start();
             }
