@@ -86,4 +86,3 @@ function askUser(){
 };
 
 showInventory();
-

@@ -22,7 +22,7 @@ function start() {
         response = answer.query;
         switch (response) {
             case 'View Sales by Department':
-                viewSales();
+                makeArray();
                 break;
             case 'Create New Department':
                 showLow();
@@ -34,11 +34,9 @@ function start() {
 }
 
 var departmentArray = [];
-var informationArray = [];
 
-function viewSales() {
-    makeArray();
-}
+
+
 
 
 function makeArray() {
@@ -54,36 +52,25 @@ function makeArray() {
                     departmentArray.push(response[i].department_name);
                 }
                 console.log(departmentArray);
-                for (i = 0; i < departmentArray.length; i++) {
-                    connection.query(
-                        `SELECT * FROM products WHERE department_name = '${departmentArray[i]}'`,
-                        function (error, response) {
-                            if (error) {
-                                console.log("There was error.")
-                                return;
+                for (var i = 0; i < departmentArray.length; i++){
+                    connection.query(`SELECT product_sales FROM products WHERE department_name = '${departmentArray[i]}'`, function (error, response) {
+                        if (error) {
+                            console.log("Odd syntax error.");
+                            return;
+                        } else {
+                            console.log(response)
+                            for (var i =0; i< response.length; i++){
+                                var newTotal = 0
+                                var updatedTotal = newTotal + response[i].product_sales
+                                console.log(updatedTotal)
                             }
-                            if (!error) {
-                                var deptTotal = 0;
-                                for (i = 0; i < response.length; i++) {
-                                    deptTotal = deptTotal + response[i].product_sales
-                                    var dept = response[i].department_name
-                                }
-                                informationArray.push({
-                                    department: dept,
-                                    sales: deptTotal
-                                })
-                            }
-                            console.log(informationArray);
                         }
-                    )
+                    })
                 }
             }
         }
     )
 }
 
-setTimeout(function updateArray() {
-    console.log("Here"+informationArray)
-}, 2000);
 
 start();
