@@ -70,7 +70,8 @@ function makeArray() {
                                 }
                                 informationArray.push({
                                     department: dept,
-                                    sales: deptTotal})
+                                    sales: deptTotal
+                                })
                             }
                             console.log(informationArray);
                         }
@@ -81,5 +82,8 @@ function makeArray() {
     )
 }
 
+setTimeout(function updateArray() {
+    console.log("Here"+informationArray)
+}, 2000);
 
 start();
